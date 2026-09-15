@@ -1,0 +1,202 @@
+/* ==========================================================================
+   ระบบสอบออนไลน์และแพลตฟอร์มการเรียนรู้ (Betong EduExam Online Platform)
+   แผนกวิชาช่างอิเล็กทรอนิกส์ วิทยาลัยการอาชีพเบตง
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-heading: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  
+  --primary: #1e40af;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --accent: #d97706;
+  --accent-light: #fef3c7;
+  --success: #059669;
+  --success-light: #d1fae5;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --warning: #ea580c;
+  
+  --bg-main: #f8fafc;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+}
+
+.dark {
+  --bg-main: #0f172a;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --primary-light: #1e3a8a;
+  --accent-light: #78350f;
+  --success-light: #064e3b;
+  --danger-light: #7f1d1d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  user-select: none; /* ป้องกันการคลุมดำคัดลอกโจทย์ */
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+}
+
+code, pre {
+  font-family: var(--font-code);
+  user-select: text;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+/* Exam Timer Animation */
+@keyframes pulse-urgent {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.04); opacity: 0.85; }
+}
+
+.timer-urgent {
+  animation: pulse-urgent 1s infinite ease-in-out;
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.timer-warning {
+  background-color: #f59e0b !important;
+  color: #ffffff !important;
+}
+
+/* Choice Cards */
+.choice-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--card-bg);
+  cursor: pointer;
+}
+
+.choice-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.choice-card.selected {
+  border-color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+/* Practice Mode Answers */
+.choice-card.practice-correct {
+  border-color: #059669 !important;
+  background-color: rgba(5, 150, 105, 0.12) !important;
+}
+.choice-card.practice-wrong {
+  border-color: #dc2626 !important;
+  background-color: rgba(220, 38, 38, 0.12) !important;
+}
+
+/* Question Navigation Grid */
+.nav-item {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-main);
+}
+
+.nav-item:hover {
+  transform: scale(1.08);
+  border-color: #3b82f6;
+}
+
+.nav-item.current {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  font-weight: 700;
+}
+
+.nav-item.answered {
+  background-color: #10b981;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.nav-item.flagged {
+  background-color: #f59e0b;
+  color: #ffffff;
+  border-color: #d97706;
+}
+
+.nav-item.answered.flagged {
+  background: linear-gradient(135deg, #10b981 50%, #f59e0b 50%);
+  color: #ffffff;
+}
+
+/* Pre Code Snippets */
+pre.code-block {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  border-left: 4px solid #3b82f6;
+}
+
+/* Print Friendly Styles */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    user-select: auto !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .card-print {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+}
